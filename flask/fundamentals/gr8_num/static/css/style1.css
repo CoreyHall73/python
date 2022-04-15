@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+#container {
+    margin: 0 auto;
+    width: 1000px;
+    background-color: gray;
+    margin-top: 30px;
+}
+
+.text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#box {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#sub {
+    text-align: center;
+}
+
+#ans {
+    margin-left: 439px;
+    align-items: center;
+    text-align: center;
+    height: 80px;
+    width: 125px;
+    background-color: red;
+    color: white;
+    margin-bottom: 30px;
+}
+
+#win {
+    margin-left: 439px;
+    align-items: center;
+    text-align: center;
+    height: 80px;
+    width: 125px;
+    background-color: green;
+    color: white;
+    margin-bottom: 30px;
+}
+
+#btn {
+    margin-left: 445px;
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}

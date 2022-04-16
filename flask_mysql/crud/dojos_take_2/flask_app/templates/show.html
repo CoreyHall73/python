@@ -10,24 +10,26 @@
     <title>Show</title>
 </head>
 <body>
-    {% for dojo in dojos  %}
-    <h1>{{dojo.name}} Ninjas</h1>
-    {% endfor %}
+    <!-- {% for dojo in dojos  %} -->
+    <h1>{{dojo_id}} Ninjas</h1>
+    <!-- {% endfor %} -->
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Roster</th>
+                <!-- <th scope="col">Roster</th> -->
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Age</th>
+                <th scope="col">Dojo ID</th>
             </tr>
         </thead>
         <tbody>
-            {% for ninja in ninjas  %}
+            {% for ninja in ninjas.ninjas  %}
             <tr>
                 <td>{{ninja.first_name}}</td>
                 <td>{{ninja.last_name}}</td>
                 <td>{{ninja.age}}</td>
+                <td>{{ninja.dojo_id}}</td>
             </tr>
             {% endfor %}
     </table>

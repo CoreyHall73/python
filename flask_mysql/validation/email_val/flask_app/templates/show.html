@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+</head>
+<body><div>
+    <h1>The email address you entered is a VALID email address! Thank you!</h1>
+    </div>
+    <h1>Emails in Database</h1>
+    {% for email in emails  %}
+        <p>{{email.email}} {{email.created_at}} <a href="/destroy/{{email.id}}">Delete</a></p></p> 
+    {% endfor %}
+</body>
+</html>

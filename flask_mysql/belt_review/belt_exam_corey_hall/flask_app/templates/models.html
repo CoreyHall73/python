@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>models</title>
+</head>
+<body>
+    <h1 class="text-center">Here are our models!!!</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Column One</th>
+                <th>Column Two</th>
+                <th>Column Three</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for model in models %}
+            <tr>
+                <td>{{ model.column1 }}</td>
+                <td>{{ model.column2 }}</td>
+                <td>{{ model.column3}}</td>
+                <td>{{ model.created_at.strftime("%b %d %Y") }}</td>
+                <td>
+                    <a href="/model/show/{{ model.id }}">Show</a> |
+                    <a href="/model/edit/{{ model.id }}">Edit</a> |
+                    <a href="/model/destroy/{{ model.id }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/model/new" class="btn btn-primary">Add a model</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe</title>
+</head>
+<body>
+    <h1>Add New Recipe</h1> <a href="/dash">Dashboard</a> <a href="/logout">Logout</a>
+    <form action="/create_r" method="post">
+        <input type="hidden" name="user_id" value="{{session['user_id']}}">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" placeholder="" name="name" aria-label="default input example">
+        <label for="description">Description: </label>
+        <input class="form-control" type="text" placeholder="" name="description" aria-label="default input example">
+        <label for="instructions">Instructions</label>
+        <input class="form-control" type="text" placeholder="" name="instructions" aria-label="default input example">
+        <select name="under_30" id="under_30">
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+        </select>
+        <input type="date" name="date_made">
+        <input type="submit" value="Create">
+        {% with messages = get_flashed_messages() %}    
+        {% if messages %}                        
+            {% for message in messages %}     
+                <p>{{message}}</p>          
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </form>
+</body>
+</html>

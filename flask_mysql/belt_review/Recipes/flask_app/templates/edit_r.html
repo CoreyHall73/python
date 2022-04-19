@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe</title>
+</head>
+<body>
+    <h1>Edit Recipe</h1> <a href="/dash">Dashboard</a> <a href="/logout">Logout</a>
+    <form action="/update" method="post">
+        <input type="hidden" name="user_id" value="{{session['user_id']}}">
+        <input type="hidden" name="id" value="{{recipe.id}}">
+        <label for="name">Name:</label>
+        <input class="form-control" type="text" placeholder="{{recipe.name}}" name="name" aria-label="default input example">
+        <label for="description">Description: </label>
+        <input class="form-control" type="text" placeholder="{{recipe.description}}" name="description" aria-label="default input example">
+        <label for="instructions">Instructions</label>
+        <input class="form-control" type="text" placeholder="{{recipe.instructions}}" name="instructions" aria-label="default input example">
+        <select name="under_30" id="under_30" aria-placeholder="{{recipe.under_30}}">
+            <option value="yes">yes</option>
+            <option value="no">no</option>
+        </select>
+        <input type="date" name="date_made" placeholder="{{recipe.date_made}}">
+        <input type="submit" value="Update">
+    </form>
+    {% with messages = get_flashed_messages() %}    
+    {% if messages %}                        
+        {% for message in messages %}     
+            <p>{{message}}</p>          
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+</body>
+</html>

@@ -23,15 +23,24 @@ class User:
         return connectToMySQL(DATABASE).query_db( query, data )
 
     @classmethod
+    def get_all(cls) -> object or bool:
+        query = "SELECT * FROM users;"
+        result = connectToMySQL(DATABASE).query_db(query)
+        users = []
+        for user in result:
+            users.append(cls(user))
+        return users
+
+    @classmethod
     def get_by_email(cls,data:dict) -> object or bool:
-        query = "SELECT * FROM belt_exam.users WHERE email = %(email)s;"
+        query = "SELECT * FROM users WHERE email = %(email)s;"
         result = connectToMySQL(DATABASE).query_db(query,data)
         if len(result) < 1:
             return False
         return cls(result[0])
 
     @classmethod
-    def get_one_(cls,data):
+    def get_one(cls,data):
         query = "SELECT * FROM users LEFT JOIN recipes ON users.id = recipes.user_id WHERE users.id = %(id)s"
         result = connectToMySQL(DATABASE).query_db(query,data)
         return results

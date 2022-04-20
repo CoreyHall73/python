@@ -35,12 +35,13 @@ def register():
 def dash():
     if 'user_id' not in session:
         return redirect('/logout')
-    return render_template('dash.html') #, recipes=Recipe.get_all())
+    return render_template('dash.html', users=User.get_all()) #, recipes=Recipe.get_all())
 
 @app.route('/login', methods=['POST'])
 def login():
     data = { "email" : request.form["email"] }
     user_in_db = User.get_by_email(data)
+    print(data)
     if not user_in_db:
         flash("Invalid Email/Password")
         return redirect("/")

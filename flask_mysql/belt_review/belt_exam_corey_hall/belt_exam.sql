@@ -1,1 +1,1 @@
-SELECT * FROM belt_exam.users;
+SELECT * FROM belt_exam.magazines;

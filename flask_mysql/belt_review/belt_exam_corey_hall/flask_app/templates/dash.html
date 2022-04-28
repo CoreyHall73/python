@@ -10,21 +10,21 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>Welcome {{session['user_name']}}!</h1> <a href="/create">Create</a> <a href="/logout">Logout</a>
+    <h1>Welcome {{session['user_name']}}!</h1> <a href="/create">Add Magazine</a> <a href="/update/{{session['user_id']}}">Account</a> <a href="/logout">Logout</a>
+    <h1>Magazines</h1>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Email</th>
+                <!-- <th>Name</th>
+                <th>Email</th> -->
                 <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.email }}</td>
-            </tr>
+            {% for magazine in magazines %}
+                <tr>
+                    <td><p><a href="/show_mag/{{magazine.id}}">{{ magazine.title }}</a> added by {{magazine.user_id}}</p></td>
+                </tr>
             {% endfor %}
         </tbody>
     </table>        

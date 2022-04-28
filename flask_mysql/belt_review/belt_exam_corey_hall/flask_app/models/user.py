@@ -1,6 +1,6 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app import flash, re
-# from flask_app.models.recipe import Recipe
+from flask_app.models.magazine import Magazine
 
 DATABASE = 'belt_exam'
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -14,7 +14,7 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.recipes = []
+        self.magazines = []
 
 
     @classmethod
@@ -41,18 +41,45 @@ class User:
 
     @classmethod
     def get_one(cls,data):
-        query = "SELECT * FROM users LEFT JOIN recipes ON users.id = recipes.user_id WHERE users.id = %(id)s"
+        query = "SELECT * FROM users LEFT JOIN magazines ON users.id = magazines.user_id WHERE users.id = %(id)s"
         result = connectToMySQL(DATABASE).query_db(query,data)
-        return results
+        user = cls(result[0])
+        return user
+
+    @classmethod
+    def get_user_with_magazines( cls , data ):
+        query = "SELECT * FROM users LEFT JOIN magazines ON magazines.user_id = users.id WHERE users.id = %(id)s;"
+        results = connectToMySQL(DATABASE).query_db( query , data )
+        user = cls( results[0] )
+        for row_from_db in results:
+            
+            magazine_data = {
+                "id" : row_from_db["magazines.id"],
+                "title" : row_from_db["title"],
+                "description" : row_from_db["description"],
+                "user_id" : row_from_db["user_id"],
+                "created_at" : row_from_db["created_at"],
+                "updated_at" : row_from_db["updated_at"]
+            }
+            user.magazines.append( Magazine( magazine_data ) )
+        return user
+
+    @classmethod
+    def update(cls,data):
+        query = "UPDATE users SET first_name=%(first_name)s,last_name=%(last_name)s,email=%(email)s WHERE id = %(id)s;"
+        return connectToMySQL(DATABASE).query_db(query,data)
 
     @staticmethod
     def validate_user(user:dict) -> bool:
         is_valid = True 
         if len(user['first_name']) < 3:
-            flash("Name must be at least 3 characters.")
+            flash("First name must be at least 3 characters.")
             is_valid = False
         if len(user['last_name']) < 3:
-            flash("Name must be at least 3 characters.")
+            flash("Last name must be at least 3 characters.")
+            is_valid = False
+        if len(user['password']) < 8:
+            flash("Password must be at least 8 characters.")
             is_valid = False
         if not EMAIL_REGEX.match(user['email']): 
             flash("Invalid email address")
@@ -61,3 +88,16 @@ class User:
             flash("Passwords do not match")
             is_valid = False
         return is_valid
+
+    # @staticmethod
+    # def validate_user_update(user:dict) -> bool:
+    #     is_valid = True 
+    #     if len(user['first_name']) < 3:
+    #         flash("First name must be at least 3 characters.")
+    #         is_valid = False
+    #     if len(user['last_name']) < 3:
+    #         flash("Last name must be at least 3 characters.")
+    #         is_valid = False
+    #     if not EMAIL_REGEX.match(user['email']): 
+    #         flash("Invalid email address")
+    #         is_valid = False

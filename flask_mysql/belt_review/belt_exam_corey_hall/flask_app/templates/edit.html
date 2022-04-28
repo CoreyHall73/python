@@ -7,26 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Edit model</title>
+    <title>Update User</title>
 </head>
 <body>
-
-    <form action="/model/update" method="post" class="col-6 mx-auto">
-        <h2 class="text-center">Edit {{model.id}}</h2>
-        <input type="hidden" name="id" value={{model.id}}>
+    <a href="/create">Add Magazine</a> <a href="/dash">Dashboard</a> <a href="/logout">Logout</a>
+    <form action="/update_user" method="post" class="col-6 mx-auto">
+        <h2 class="text-center">Update User</h2>
+        <input type="hidden" name="id" value="{{session['user_id']}}">
         <div class="form-group">
-            <label for="column1">column1:</label>
-            <input type="text" name="column1"  class="form-control" value="{{model.column1}}">
+            <label for="name">First Name:</label>
+            <input type="text" name="first_name"  class="form-control" placeholder="" value="">
         </div>
         <div class="form-group">
-            <label for="column2">column2:</label>
-            <input type="text" name="column2" class="form-control" value="{{model.column2}}">
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" class="form-control" placeholder="" value="">
         </div>
         <div class="form-group">
-            <label for="column3">column3:</label>
-            <input type="text" name="column3"  class="form-control" value="{{model.column3}}">
+            <label for="email">Email:</label>
+            <input type="text" name="email"  class="form-control" placeholder="" value="">
         </div>
-        <input type="submit" value="Update model" class="btn btn-success">
+        <input type="submit" value="Update" class="btn btn-success">
     </form>
+    {% with messages = get_flashed_messages() %}    
+                {% if messages %}                        
+                    {% for message in messages %}     
+                        <p>{{message}}</p>          
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    <h1>User's Magaizines</h1>
+    {% for magazine in user.magazines  %}
+        
+    {{magazine.title}} <a href="/delete/{{magazine.id}}">delete</a>
+    {% endfor %}
+
 </body>
 </html>
